@@ -2,32 +2,33 @@ defmodule StateMc.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :state_mc,
-     version: "0.1.0",
-     elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps(),
-     package: package(),
-     description: description(),
-     elixirc_paths: elixirc_paths(Mix.env)
+    [
+      app: :state_mc,
+      version: "0.1.0",
+      elixir: "~> 1.3",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps(),
+      package: package(),
+      description: description(),
+      elixirc_paths: elixirc_paths(Mix.env())
     ]
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/dummy"]
   defp elixirc_paths(_), do: ["lib"]
-    
+
   # Configuration for the OTP application
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: app_list(Mix.env)]
+    [applications: app_list(Mix.env())]
   end
 
-  defp app_list(:test), do: app_list ++ [:ecto, :postgrex, :ex_machina]
-  defp app_list(_), do: app_list
+  defp app_list(:test), do: app_list() ++ [:ecto, :postgrex, :ex_machina]
+  defp app_list(_), do: app_list()
   defp app_list, do: [:logger]
-    
+
   # Dependencies can be Hex packages:
   #
   #   {:mydep, "~> 0.3.0"}
@@ -39,11 +40,12 @@ defmodule StateMc.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:ecto, ">= 2.0.0"},
-      {:postgrex,   ">= 0.0.0", only: :test},
-      {:ex_machina, "~> 1.0.0", only: :test},
-      {:ex_spec,    "~> 2.0.0", only: :test},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ecto, ">= 3.13.0"},
+      {:ecto_sql, ">= 3.13.0"},
+      {:postgrex, ">= 0.21.0", only: :test},
+      {:ex_machina, "~> 2.8.0", only: :test},
+      {:ex_spec, "~> 2.0.1"},
+      {:ex_doc, ">= 0.38.0", only: :dev}
     ]
   end
 
